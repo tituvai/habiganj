@@ -121,7 +121,7 @@ btn.addEventListener("click", function(){
 
   this.textContent = showTop2
     ? "Show All Candidates"
-    : "Show Top 2";
+    : "Top Candidated";
 
   render();
 });
