@@ -1,0 +1,92 @@
+body{
+  margin:0;
+  background:#0b1220;
+  font-family: Arial, sans-serif;
+  color:#fff;
+}
+
+.header{
+  text-align:center;
+  padding:15px;
+  font-size:28px;
+  font-weight:bold;
+  background:#111a33;
+}
+
+#seats{
+  display: flex;
+  flex-wrap: wrap;   
+}
+
+.seat{
+  background:#141e3a;
+  border-radius:16px;
+  padding:15px;
+  margin:15px;
+  width: ;
+}
+
+.seat-title{
+  font-size:22px;
+  margin-bottom:10px;
+  border-bottom:1px solid #2a3b6e;
+}
+
+.candidate{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,255,255,0.05);
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:8px;
+}
+
+.candidate.leader{
+  border:2px solid #2aff2a;
+  box-shadow:0 0 10px rgba(42,255,42,.9);
+}
+
+.photo{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:#555;
+  flex-shrink:0;
+}
+
+.info{
+  flex:1;
+}
+
+.name{
+  font-size:16px;
+  font-weight:bold;
+}
+
+.party{
+  font-size:13px;
+  opacity:.8;
+}
+
+.symbol{
+  font-size:13px;
+}
+
+.votes{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.bar{
+  height:6px;
+  background:#333;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:5px;
+}
+
+.fill{
+  height:100%;
+  background:linear-gradient(90deg,#00ff99,#00ccff);
+}

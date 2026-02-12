@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Vote Update Dashboard</title>
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#0b1220;
+      color:#fff;
+    }
+    h1{
+      text-align:center;
+      padding:15px;
+      background:#111a33;
+      margin:0;
+    }
+    .seat{
+      background:#141e3a;
+      margin:15px;
+      padding:15px;
+      border-radius:12px;
+    }
+    .seat h2{
+      margin-top:0;
+      border-bottom:1px solid #2a3b6e;
+      padding-bottom:5px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 2fr 2fr 1fr;
+      gap:10px;
+      align-items:center;
+      margin-bottom:8px;
+    }
+    input{
+      padding:6px 8px;
+      border-radius:6px;
+      border:none;
+    }
+    button{
+      padding:10px 20px;
+      background:#00ccff;
+      border:none;
+      border-radius:8px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      display:block;
+      margin:20px auto;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🛠️ ভোট আপডেট ড্যাশবোর্ড</h1>
+
+<div id="dashboard"></div>
+
+<button onclick="saveData()">💾 Save & Update Live</button>
+
+<script>
+const data = [
+  { seat:'হবিগঞ্জ-১', candidates:[
+    {name:'মোহাম্মদ বদরুর রেজা', votes:15280},
+    {name:'কাজী তোফায়েল আহমেদ', votes:12450},
+    {name:'রেজা কিবরিয়া', votes:19870},
+    {name:'মাওলানা সিরাজুল ইসলাম', votes:7320},
+    {name:'শেখ সুজাত মিয়া', votes:4150},
+  ]},
+  { seat:'হবিগঞ্জ-২', candidates:[
+    {name:'আব্দুল বাছিত আজাদ', votes:10340},
+    {name:'আব্দুল মুক্তাদির চৌধুরী', votes:16420},
+    {name:'লুকমান আহমদ তালুকদার', votes:5240},
+    {name:'আফছার আহমদ', votes:7320},
+    {name:'আবু মনসুর সাখাওয়াত হাসান', votes:18210},
+  ]},
+  { seat:'হবিগঞ্জ-৩', candidates:[
+    {name:'মোঃ শাহিনুর রহমান', votes:4860},
+    {name:'কাজী মহসিন আহমদ', votes:17340},
+    {name:'এস. এম. সরওয়ার', votes:8420},
+    {name:'মহিব উদ্দিন আহমেদ সোহেল', votes:11280},
+    {name:'আব্দুল মুমিন চৌধুরী', votes:6540},
+    {name:'আলহাজ্ব মোঃ জি কে গউছ', votes:20110},
+  ]},
+  { seat:'হবিগঞ্জ-৪', candidates:[
+    {name:'মোঃ রাশেদুল ইসলাম খোকন', votes:5120},
+    {name:'মোঃ গিয়াস উদ্দিন', votes:8360},
+    {name:'মোঃ মুজিবুর রহমান', votes:4380},
+    {name:'মোঃ মিজানুর রহমান চৌধুরী', votes:9870},
+    {name:'এস. এম. ফয়সল', votes:21450},
+    {name:'সালেহ আহমদ সাজন', votes:7640},
+    {name:'শাহ মোঃ আল আমিন', votes:3290},
+    {name:'মুঃ রেজাউল মোস্তফা', votes:2180},
+  ]}
+];
+
+const dash = document.getElementById('dashboard');
+
+data.forEach((seat,si)=>{
+  let html = `<div class="seat"><h2>${seat.seat}</h2>`;
+  seat.candidates.forEach((c,ci)=>{
+    html += `
+      <div class="row">
+        <div>${c.name}</div>
+        <input type="number" value="${c.votes}" id="s${si}c${ci}">
+        <span>ভোট</span>
+      </div>`;
+  });
+  html += '</div>';
+  dash.innerHTML += html;
+});
+
+function saveData(){
+  data.forEach((seat,si)=>{
+    seat.candidates.forEach((c,ci)=>{
+      c.votes = parseInt(document.getElementById(`s${si}c${ci}`).value) || 0;
+    });
+  });
+  localStorage.setItem('liveVotes', JSON.stringify(data));
+  alert('ভোট আপডেট হয়েছে! লাইভ স্ক্রিন রিফ্রেশ করুন');
+}
+</script>
+
+</body>
+</html>
