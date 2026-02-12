@@ -57,44 +57,78 @@ if(saved){
 
 
 // ------------------ Render Function ------------------
+// ------------------ Global State ------------------
+let showTop2 = false;
+
+
+// ------------------ Render Function ------------------
 function render(){
   const container = document.getElementById("seats");
   container.innerHTML = "";
 
-  data.forEach(seat=>{
-    seat.candidates.sort((a,b)=>b.votes-a.votes);
+  data.forEach((seat)=>{
+    // vote অনুযায়ী sort
+    seat.candidates.sort((a,b)=> b.votes - a.votes);
     const max = seat.candidates[0].votes;
 
-    let html = `<div class="seat">
-      <div class="seat-title">${seat.seat} আসন</div>`;
+    let html = `
+      <div class="seat">
+        <div class="seat-title">${seat.seat} আসন</div>
+    `;
 
     seat.candidates.forEach((c,i)=>{
+
+      // 👉 যদি Top2 mode ON থাকে → শুধু প্রথম 2 জন
+      if(showTop2 && i > 1) return;
+
       html += `
-     
-      <div class="candidate ${i===0?'leader':''}">
-       <div class="photo">
-      <img src="${c.image ? c.image : 'image/default.png'}" alt="${c.name}" />
-    </div>
-        <div class="info">
-          <div class="name">${c.name}</div>
-           <div class="party">${c.party}</div>
-           <div class="symbol">প্রতীক: ${c.symbol}</div>
-          <div class="bar">
-            <div class="fill" style="width:${(c.votes/max)*100}%"></div>
+        <div class="candidate ${i===0 ? 'leader' : ''}">
+          
+          <div class="photo">
+            <img src="${c.image || 'image/default.png'}" alt="${c.name}">
           </div>
+
+          <div class="info">
+            <div class="name">${c.name}</div>
+            <div class="party">${c.party}</div>
+            <div class="symbol">প্রতীক: ${c.symbol}</div>
+
+            <div class="bar">
+              <div class="fill" style="width:${(c.votes/max)*100}%"></div>
+            </div>
+          </div>
+
+          <div class="votes">${c.votes.toLocaleString()}</div>
         </div>
-        <div class="votes">${c.votes.toLocaleString()}</div>
-      </div>`;
+      `;
     });
 
-    html += "</div>";
+    html += `</div>`;
     container.innerHTML += html;
   });
 }
 
 
-// First Load
+// ------------------ First Load ------------------
 render();
+
+
+// ------------------ Single Global Button ------------------
+const btn = document.getElementById("top2Btn");
+
+btn.addEventListener("click", function(){
+  showTop2 = !showTop2;
+
+  this.textContent = showTop2
+    ? "Show All Candidates"
+    : "Show Top 2";
+
+  render();
+});
+
+
+
+
 
 
 // ------------------ Auto Live Update ------------------
